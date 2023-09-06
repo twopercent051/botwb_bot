@@ -1,3 +1,5 @@
+from typing import Literal, Any
+
 import redis
 import json
 
@@ -11,18 +13,22 @@ class RedisConnector:
 
     @classmethod
     def redis_start(cls):
-        cls.r.set('keywords', json.dumps(list()))
+        for db in ["users"]:
+            if cls.get_redis(db) is None:
+                cls.r.set(db, json.dumps(list()))
         logger.info('Redis connected OKK')
 
     @classmethod
-    async def update_kw_list(cls, kw_list: list):
-        cls.r.set('keywords', json.dumps(kw_list))
+    def append_redis(cls, redis_db: Literal["users"], value: Any):
+        current_value = cls.get_redis(redis_db=redis_db)
+        current_value.append(value)
+        cls.r.set(redis_db, json.dumps(current_value))
 
     @classmethod
-    async def get_kw_list(cls):
-        response = cls.r.get('keywords')
-        if response is None:
+    def get_redis(cls, redis_db: Literal["users"]) -> list:
+        response = cls.r.get(redis_db)
+        if not response:
             return None
-        response = cls.r.get('keywords').decode('utf=8')
-        kw_list = json.loads(response)
-        return kw_list
+        response = cls.r.get(redis_db).decode('utf=8')
+        result = json.loads(response)
+        return result
