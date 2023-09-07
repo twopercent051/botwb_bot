@@ -1,28 +1,25 @@
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-from aiogram.utils.keyboard import InlineKeyboardBuilder
 
 
 class InlineKeyboard:
 
-    @classmethod
-    def main_menu_kb(cls):
-        keyboard = [[InlineKeyboardButton(text='Ключевые слова', callback_data='keywords')]]
-        keyboard = InlineKeyboardMarkup(inline_keyboard=keyboard)
-        return keyboard
+    def __init__(self):
+        pass
 
-    @classmethod
-    def home_kb(cls):
-        keyboard = [[InlineKeyboardButton(text='🏡 Домой', callback_data='home')]]
-        keyboard = InlineKeyboardMarkup(inline_keyboard=keyboard)
-        return keyboard
+    @staticmethod
+    def chat_following_kb():
+        keyboard = [[
+            InlineKeyboardButton(text="Подписаться на канал", url="https://t.me/+6dRLrSfmefhhODRi"),
+            InlineKeyboardButton(text="Я подписался", callback_data="Я подписался"),
+        ]]
+        return InlineKeyboardMarkup(inline_keyboard=keyboard)
 
-    @classmethod
-    def kw_kb(cls):
-        keyboard = [
-            [
-                InlineKeyboardButton(text='Ключевые слова', callback_data='keywords'),
-                InlineKeyboardButton(text='🏡 Домой', callback_data='home')
-            ]
-        ]
-        keyboard = InlineKeyboardMarkup(inline_keyboard=keyboard)
-        return keyboard
+    @staticmethod
+    def item_subscribe_kb(article: int | str):
+        keyboard = [[InlineKeyboardButton(text="🔘 Включить отслеживание", callback_data=f"subscribe:{article}")]]
+        return InlineKeyboardMarkup(inline_keyboard=keyboard)
+
+    @staticmethod
+    def item_subscribe_off_kb(article: int | str):
+        keyboard = [[InlineKeyboardButton(text="➖ Выключить отслеживание", callback_data=f"subscribe_off:{article}")]]
+        return InlineKeyboardMarkup(inline_keyboard=keyboard)
