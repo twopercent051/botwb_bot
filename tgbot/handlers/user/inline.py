@@ -10,7 +10,7 @@ class InlineKeyboard:
     def chat_following_kb():
         keyboard = [[
             InlineKeyboardButton(text="Подписаться на канал", url="https://t.me/+BYghn3IHz6pmYmEy"),
-            InlineKeyboardButton(text="Я подписался", callback_data="Я подписался"),
+            InlineKeyboardButton(text="Я подписался", callback_data="check"),
         ]]
         return InlineKeyboardMarkup(inline_keyboard=keyboard)
 
