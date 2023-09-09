@@ -18,6 +18,6 @@ class BlockUserMiddleware(BaseMiddleware):
         user_channel_status = await bot.get_chat_member(chat_id=config.tg_bot.check_chat_id, user_id=event.from_user.id)
         if user_channel_status.status not in ["left", "kicked"]:
             return await handler(event, data)
-        text = 'Подпишитесь на канал https://t.me/+6dRLrSfmefhhODRi чтобы использовать бота'
+        text = 'Подпишитесь на канал https://t.me/+BYghn3IHz6pmYmEy чтобы использовать бота'
         kb = inline.chat_following_kb()
         await event.answer(text, reply_markup=kb)
